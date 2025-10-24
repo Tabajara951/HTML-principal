@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Nome - Editor de Vídeo</title>
+    
+    <style>
+        /* --- Configurações Globais --- */
+        html {
+            /* Habilita a rolagem suave ao clicar nos links do menu */
+            scroll-behavior: smooth;
+
+            /* IMPORTANTE: Compensa a altura do menu fixo.
+             Sem isso, ao clicar em "SOBRE MIM", o título "SOBRE MIM"
+             ficaria escondido debaixo do menu. 
+             Ajuste (70px) se mudar a altura do header.
+            */
+            scroll-padding-top: 70px; 
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+            /* Estilo "dark" básico */
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        /* --- Header / Menu Fixo --- */
+        header {
+            /* É ISSO QUE FAZ O MENU "GRUDAR" */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            
+            background-color: #1f1f1f; /* Cor de fundo do menu */
+            padding: 1rem 0;
+            text-align: center;
+            z-index: 1000; /* Garante que o menu fique acima de todo o resto */
+            border-bottom: 1px solid #333;
+        }
+
+        header nav ul {
+            list-style: none; /* Remove bolinhas da lista */
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav li {
+            display: inline-block; /* Coloca os links lado a lado */
+            margin: 0 20px;
+        }
+
+        header nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #aaaaaa; /* Cor ao passar o mouse */
+        }
+
+        /* --- Estrutura das Seções --- */
+        /* Define um preenchimento padrão para todas as seções.
+           O padding-top é maior para dar espaço após o header, 
+           mas o scroll-padding-top cuida do "pulo" da âncora.
+        */
+        section {
+            padding: 60px 20px; /* Espaçamento interno */
+            min-height: 400px; /* Altura mínima para vermos o efeito de rolagem */
+            border-bottom: 1px solid #333; /* Linha separadora */
+        }
+
+        /* --- Estilos Específicos das Seções --- */
+
+        /* Seção 1: Projetos / Início */
+        #projetos {
+            text-align: center;
+            padding-top: 100px; /* Mais espaço no topo por ser a primeira seção */
+        }
+        
+        #projetos img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Deixa a foto redonda */
+            object-fit: cover;
+            border: 3px solid #f0f0f0;
+        }
+
+        #projetos h1 {
+            font-size: 2.5rem;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        #projetos .titulo {
+            font-size: 1.3rem;
+            color: #cccccc;
+            margin-top: 0;
+        }
+
+        .galeria-videos {
+            margin-top: 40px;
+            /* Aqui você pode usar CSS Grid ou Flexbox para alinhar seus vídeos */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        /* Placeholder para os vídeos */
+        .video-placeholder {
+            width: 300px;
+            height: 170px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Seção 2: Sobre Mim */
+        #sobre {
+            max-width: 800px;
+            margin: 0 auto; /* Centraliza o texto */
+            line-height: 1.6;
+        }
+
+        /* Seção 3: Contato */
+        #contato {
+             text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#projetos">PROJETOS</a></li>
+                
+                <li><a href="#sobre">SOBRE MIM</a></li>
+                
+                <li><a href="#contato">CONTATO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="projetos">
+            
+            <img src="sua-foto.jpg" alt="Foto profissional de João Silva">
+            
+            <h1>JOÃO SILVA</h1>
+            <p class="titulo">Editor de Vídeo para Criadores de Conteúdo</p>
+
+            <div class="galeria-videos">
+                <div class="video-placeholder">(Seu Vídeo 1 Aqui)</div>
+                <div class="video-placeholder">(Seu Vídeo 2 Aqui)</div>
+                <div class="video-placeholder">(Seu Vídeo 3 Aqui)</div>
+                </div>
+            
+        </section>
+
+        <section id="sobre">
+            <h2>SOBRE MIM</h2>
+            <p>
+                Escreva aqui sua biografia. Fale sobre sua paixão por edição, 
+                suas habilidades com softwares (como DaVinci Resolve, Fusion, etc.), 
+                e o tipo de valor que você agrega aos projetos dos seus clientes.
+            </p>
+            <p>
+                Mantenha curto e direto, focando em como você resolve o problema 
+                do seu cliente (Ex: "Eu transformo gravações brutas em vídeos 
+                dinâmicos que engajam o público e aumentam o 'watch time'").
+            </p>
+        </section>
+
+        <section id="contato">
+            <h2>ENTRE EM CONTATO</h2>
+            <p>Gostou do que viu? Vamos criar algo incrível juntos.</p>
+            
+            <ul>
+                <li><a href="mailto:seu-email@dominio.com">MEU E-MAIL</a></li>
+                <li><a href="https://wa.me/SEUNUMERO" target="_blank">WHATSAPP</a></li>
+                <li><a href="https://www.linkedin.com/in/SEU-LINKEDIN" target="_blank">LINKEDIN</a></li>
+            </ul>
+        </section>
+
+    </main>
+
+</body>
+</html>
