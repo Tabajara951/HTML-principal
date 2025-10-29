@@ -232,29 +232,67 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: transform 0.2s;
             color: #ffffff;
         }
         
         .contact-btn:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
+            transform: scale(1.03);
         }
         
         .contact-btn:active {
             transform: scale(0.98);
         }
         
-        .btn-discord {
-            background-color: #5865F2;
-        }
-        
         .btn-twitter {
             background-color: #000000;
         }
         
+        .btn-discord {
+            background-color: #5865F2;
+            padding: 25px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: default;
+        }
+        
+        .discord-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .discord-text {
+            text-align: left;
+        }
+        
+        .discord-label {
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .discord-username {
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .copy-icon {
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            transition: transform 0.2s;
+        }
+        
+        .copy-icon:hover {
+            transform: scale(1.1);
+        }
+        
         .btn-email {
-            background-color: #808080;
+            background-color: #6d6d6d;
         }
         
         .copy-feedback {
@@ -269,6 +307,19 @@
         .copy-feedback.show {
             display: block;
             opacity: 1;
+        }
+        
+        body.blur-background::before,
+        body.blur-background::after {
+            filter: blur(3px);
+        }
+        
+        body.blur-background main > section:not(#contato) {
+            filter: blur(3px);
+        }
+        
+        body.blur-background header {
+            filter: blur(3px);
         }
         
         main {
@@ -328,15 +379,24 @@
             <p>Gostou do que viu? Vamos criar algo incrível juntos.</p>
             
             <div class="contact-buttons">
-                <button class="contact-btn btn-discord" id="discord-btn" onclick="copyDiscord()">
-                    .tabajara
-                </button>
-                
-                <a href="https://x.com/tabajara_2" target="_blank" class="contact-btn btn-twitter">
+                <a href="https://x.com/tabajara_2" target="_blank" class="contact-btn btn-twitter" onmouseenter="addBlur()" onmouseleave="removeBlur()">
                     X (Twitter)
                 </a>
                 
-                <a href="mailto:seu-email@exemplo.com" class="contact-btn btn-email">
+                <div class="contact-btn btn-discord" onmouseenter="addBlur()" onmouseleave="removeBlur()">
+                    <div class="discord-content">
+                        <div class="discord-text">
+                            <span class="discord-label">MY DISCORD:</span>
+                            <span class="discord-username">.tabajara</span>
+                        </div>
+                        <svg class="copy-icon" onclick="copyDiscord(event)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <a href="mailto:seu-email@exemplo.com" class="contact-btn btn-email" onmouseenter="addBlur()" onmouseleave="removeBlur()">
                     E-mail
                 </a>
             </div>
@@ -349,7 +409,16 @@
     </main>
 
     <script>
-        function copyDiscord() {
+        function addBlur() {
+            document.body.classList.add('blur-background');
+        }
+        
+        function removeBlur() {
+            document.body.classList.remove('blur-background');
+        }
+        
+        function copyDiscord(event) {
+            event.stopPropagation();
             const username = '.tabajara';
             
             navigator.clipboard.writeText(username).then(function() {
