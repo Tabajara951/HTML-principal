@@ -224,14 +224,16 @@
         
         .contact-btn {
             width: 100%;
-            padding: 18px 40px;
+            padding: 25px 40px;
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: bold;
             border: none;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             transition: transform 0.2s;
             color: #ffffff;
         }
@@ -250,31 +252,33 @@
         
         .btn-discord {
             background-color: #5865F2;
-            padding: 25px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             cursor: default;
         }
         
-        .discord-content {
+        .btn-email {
+            background-color: #6d6d6d;
+            border-radius: 25px;
+            cursor: default;
+        }
+        
+        .button-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
         }
         
-        .discord-text {
+        .button-text {
             text-align: left;
         }
         
-        .discord-label {
+        .button-label {
             font-size: 0.85rem;
             display: block;
             margin-bottom: 3px;
         }
         
-        .discord-username {
+        .button-value {
             font-size: 1.3rem;
             font-weight: bold;
             display: block;
@@ -285,14 +289,12 @@
             width: 24px;
             height: 24px;
             transition: transform 0.2s;
+            flex-shrink: 0;
+            margin-left: 20px;
         }
         
         .copy-icon:hover {
             transform: scale(1.1);
-        }
-        
-        .btn-email {
-            background-color: #6d6d6d;
         }
         
         .copy-feedback {
@@ -380,14 +382,19 @@
             
             <div class="contact-buttons">
                 <a href="https://x.com/tabajara_2" target="_blank" class="contact-btn btn-twitter" onmouseenter="addBlur()" onmouseleave="removeBlur()">
-                    X (Twitter)
+                    <div class="button-content">
+                        <div class="button-text">
+                            <span class="button-label">MY X (TWITTER):</span>
+                            <span class="button-value">@tabajara_2</span>
+                        </div>
+                    </div>
                 </a>
                 
                 <div class="contact-btn btn-discord" onmouseenter="addBlur()" onmouseleave="removeBlur()">
-                    <div class="discord-content">
-                        <div class="discord-text">
-                            <span class="discord-label">MY DISCORD:</span>
-                            <span class="discord-username">.tabajara</span>
+                    <div class="button-content">
+                        <div class="button-text">
+                            <span class="button-label">MY DISCORD:</span>
+                            <span class="button-value">.tabajara</span>
                         </div>
                         <svg class="copy-icon" onclick="copyDiscord(event)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -396,9 +403,18 @@
                     </div>
                 </div>
                 
-                <a href="mailto:seu-email@exemplo.com" class="contact-btn btn-email" onmouseenter="addBlur()" onmouseleave="removeBlur()">
-                    E-mail
-                </a>
+                <div class="contact-btn btn-email" onmouseenter="addBlur()" onmouseleave="removeBlur()">
+                    <div class="button-content">
+                        <div class="button-text">
+                            <span class="button-label">MY E-MAIL:</span>
+                            <span class="button-value">krib951@gmail.com</span>
+                        </div>
+                        <svg class="copy-icon" onclick="copyEmail(event)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </div>
+                </div>
             </div>
             
             <div class="copy-feedback" id="copy-feedback">
@@ -422,6 +438,22 @@
             const username = '.tabajara';
             
             navigator.clipboard.writeText(username).then(function() {
+                const feedback = document.getElementById('copy-feedback');
+                feedback.classList.add('show');
+                
+                setTimeout(function() {
+                    feedback.classList.remove('show');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Erro ao copiar: ', err);
+            });
+        }
+        
+        function copyEmail(event) {
+            event.stopPropagation();
+            const email = 'krib951@gmail.com';
+            
+            navigator.clipboard.writeText(email).then(function() {
                 const feedback = document.getElementById('copy-feedback');
                 feedback.classList.add('show');
                 
