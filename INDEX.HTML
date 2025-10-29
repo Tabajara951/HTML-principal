@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seu Nome - Editor de Vídeo</title>
+    <title>GUSTAVO RODRIGUES "TABAJARA" - Editor de Vídeo</title>
     
     <style>
         /* --- Configurações Globais --- */
@@ -23,10 +23,97 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            
-            /* Estilo "dark" básico */
-            background-color: #121212;
+            background: #0a0a14;
+            position: relative;
             color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 80px 80px;
+            background-position: center center;
+            transform: perspective(800px) rotateX(60deg);
+            transform-origin: center bottom;
+            pointer-events: none;
+            z-index: 1;
+            animation: grid-pulse 4s ease-in-out infinite;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.5;
+            animation: scanline 8s linear infinite;
+        }
+        
+        @keyframes grid-pulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes scanline {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(10px);
+            }
+        }
+        
+        @keyframes playhead-move {
+            0%, 100% {
+                left: 20%;
+            }
+            50% {
+                left: 80%;
+            }
+        }
+        
+        @keyframes marker-glow {
+            0%, 100% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px currentColor;
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px currentColor;
+            }
+        }
+        
+        @keyframes waveform {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(1.2);
+            }
         }
 
         /* --- Header / Menu Fixo --- */
@@ -37,10 +124,10 @@
             left: 0;
             width: 100%;
             
-            background-color: #1f1f1f; /* Cor de fundo do menu */
+            background-color: rgba(31, 31, 31, 0.95);
             padding: 1rem 0;
             text-align: center;
-            z-index: 1000; /* Garante que o menu fique acima de todo o resto */
+            z-index: 1001;
             border-bottom: 1px solid #333;
         }
 
@@ -73,9 +160,11 @@
            mas o scroll-padding-top cuida do "pulo" da âncora.
         */
         section {
-            padding: 60px 20px; /* Espaçamento interno */
-            min-height: 400px; /* Altura mínima para vermos o efeito de rolagem */
-            border-bottom: 1px solid #333; /* Linha separadora */
+            padding: 60px 20px;
+            min-height: 400px;
+            border-bottom: 1px solid #333;
+            position: relative;
+            z-index: 2;
         }
 
         /* --- Estilos Específicos das Seções --- */
@@ -135,7 +224,324 @@
 
         /* Seção 3: Contato */
         #contato {
-             text-align: center;
+            text-align: center;
+            background-color: #8a79a9;
+            padding: 60px 20px;
+        }
+        
+        #contato h2 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        #contato p {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .contact-btn {
+            width: 100%;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s;
+            color: #ffffff;
+        }
+        
+        .contact-btn:hover {
+            transform: scale(1.03);
+        }
+        
+        .contact-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-twitter {
+            background-color: #000000;
+        }
+        
+        .btn-discord {
+            background-color: #5865F2;
+            cursor: default;
+        }
+        
+        .btn-email {
+            background-color: #6d6d6d;
+            border-radius: 25px;
+            cursor: default;
+        }
+        
+        .button-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .button-text {
+            text-align: left;
+        }
+        
+        .button-label {
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .button-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .copy-icon {
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+        
+        .copy-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .copy-feedback {
+            display: none;
+            color: #ffffff;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .copy-feedback.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        body.blur-background::before,
+        body.blur-background::after {
+            filter: blur(3px);
+        }
+        
+        body.blur-background main > section:not(#contato) {
+            filter: blur(3px);
+        }
+        
+        body.blur-background header {
+            filter: blur(3px);
+        }
+        
+        main {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-playhead {
+            position: fixed;
+            bottom: 35%;
+            left: 20%;
+            width: 3px;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(0, 255, 255, 0.9) 0%, rgba(255, 0, 255, 0.6) 100%);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4);
+            z-index: 2;
+            pointer-events: none;
+            animation: playhead-move 12s ease-in-out infinite;
+        }
+        
+        .timeline-playhead::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid rgba(0, 255, 255, 0.9);
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8));
+        }
+        
+        .timeline-markers {
+            position: fixed;
+            bottom: 35%;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            bottom: 0;
+            background: rgba(255, 0, 255, 0.6);
+            animation: marker-glow 3s ease-in-out infinite;
+        }
+        
+        .timeline-marker:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .timeline-marker:nth-child(2) {
+            left: 25%;
+            animation-delay: 0.5s;
+        }
+        
+        .timeline-marker:nth-child(3) {
+            left: 40%;
+            animation-delay: 1s;
+        }
+        
+        .timeline-marker:nth-child(4) {
+            left: 55%;
+            animation-delay: 1.5s;
+        }
+        
+        .timeline-marker:nth-child(5) {
+            left: 70%;
+            animation-delay: 2s;
+        }
+        
+        .timeline-marker:nth-child(6) {
+            left: 85%;
+            animation-delay: 2.5s;
+        }
+        
+        .waveform-container {
+            position: fixed;
+            bottom: 20%;
+            left: 10%;
+            width: 80%;
+            height: 80px;
+            z-index: 1;
+            pointer-events: none;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            justify-content: space-around;
+        }
+        
+        .waveform-bar {
+            width: 4px;
+            background: linear-gradient(180deg, rgba(138, 43, 226, 0.8) 0%, rgba(255, 20, 147, 0.6) 100%);
+            box-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
+            animation: waveform 2s ease-in-out infinite;
+        }
+        
+        .waveform-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .waveform-bar:nth-child(2) { height: 45px; animation-delay: 0.1s; }
+        .waveform-bar:nth-child(3) { height: 30px; animation-delay: 0.2s; }
+        .waveform-bar:nth-child(4) { height: 55px; animation-delay: 0.3s; }
+        .waveform-bar:nth-child(5) { height: 40px; animation-delay: 0.4s; }
+        .waveform-bar:nth-child(6) { height: 25px; animation-delay: 0.5s; }
+        .waveform-bar:nth-child(7) { height: 50px; animation-delay: 0.6s; }
+        .waveform-bar:nth-child(8) { height: 35px; animation-delay: 0.7s; }
+        .waveform-bar:nth-child(9) { height: 45px; animation-delay: 0.8s; }
+        .waveform-bar:nth-child(10) { height: 30px; animation-delay: 0.9s; }
+        .waveform-bar:nth-child(11) { height: 55px; animation-delay: 1s; }
+        .waveform-bar:nth-child(12) { height: 40px; animation-delay: 1.1s; }
+        .waveform-bar:nth-child(13) { height: 25px; animation-delay: 1.2s; }
+        .waveform-bar:nth-child(14) { height: 50px; animation-delay: 1.3s; }
+        .waveform-bar:nth-child(15) { height: 35px; animation-delay: 1.4s; }
+        .waveform-bar:nth-child(16) { height: 45px; animation-delay: 1.5s; }
+        .waveform-bar:nth-child(17) { height: 28px; animation-delay: 1.6s; }
+        .waveform-bar:nth-child(18) { height: 52px; animation-delay: 1.7s; }
+        .waveform-bar:nth-child(19) { height: 38px; animation-delay: 1.8s; }
+        .waveform-bar:nth-child(20) { height: 42px; animation-delay: 1.9s; }
+        
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            opacity: 0.3;
+            z-index: 2;
+            pointer-events: none;
+            animation: grain-shift 0.5s steps(10) infinite;
+        }
+        
+        @keyframes grain-shift {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(5%, -10%); }
+            30% { transform: translate(-10%, 5%); }
+            40% { transform: translate(10%, 10%); }
+            50% { transform: translate(-5%, 5%); }
+            60% { transform: translate(5%, -5%); }
+            70% { transform: translate(-10%, -10%); }
+            80% { transform: translate(10%, -5%); }
+            90% { transform: translate(-5%, 10%); }
+        }
+        
+        .rec-widget {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: Consolas, 'Courier New', monospace;
+            z-index: 10000;
+            pointer-events: none;
+        }
+        
+        .rec-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #FF0000;
+            border-radius: 50%;
+            animation: blink-animation 1s infinite;
+        }
+        
+        @keyframes blink-animation {
+            0%, 100% {
+                background-color: #FF0000;
+            }
+            50% {
+                background-color: #6d0000;
+            }
+        }
+        
+        .rec-text {
+            color: #FF0000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .rec-timer {
+            color: #ffffff;
+            font-size: 14px;
         }
 
     </style>
@@ -158,9 +564,9 @@
 
         <section id="projetos">
             
-            <img src="sua-foto.jpg" alt="Foto profissional de João Silva">
+            <img src="assets/profile-photo.png" alt="Foto de Gustavo Rodrigues Tabajara">
             
-            <h1>JOÃO SILVA</h1>
+            <h1>GUSTAVO RODRIGUES "TABAJARA"</h1>
             <p class="titulo">Editor de Vídeo para Criadores de Conteúdo</p>
 
             <div class="galeria-videos">
@@ -189,14 +595,153 @@
             <h2>ENTRE EM CONTATO</h2>
             <p>Gostou do que viu? Vamos criar algo incrível juntos.</p>
             
-            <ul>
-                <li><a href="mailto:seu-email@dominio.com">MEU E-MAIL</a></li>
-                <li><a href="https://wa.me/SEUNUMERO" target="_blank">WHATSAPP</a></li>
-                <li><a href="https://www.linkedin.com/in/SEU-LINKEDIN" target="_blank">LINKEDIN</a></li>
-            </ul>
+            <div class="contact-buttons">
+                <a href="https://x.com/tabajara_2" target="_blank" class="contact-btn btn-twitter" onmouseenter="addBlur()" onmouseleave="removeBlur()">
+                    <div class="button-content">
+                        <div class="button-text">
+                            <span class="button-label">MY X (TWITTER):</span>
+                            <span class="button-value">@tabajara_2</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="contact-btn btn-discord" onmouseenter="addBlur()" onmouseleave="removeBlur()">
+                    <div class="button-content">
+                        <div class="button-text">
+                            <span class="button-label">MY DISCORD:</span>
+                            <span class="button-value">.tabajara</span>
+                        </div>
+                        <svg class="copy-icon" onclick="copyDiscord(event)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="contact-btn btn-email" onmouseenter="addBlur()" onmouseleave="removeBlur()">
+                    <div class="button-content">
+                        <div class="button-text">
+                            <span class="button-label">MY E-MAIL:</span>
+                            <span class="button-value">krib951@gmail.com</span>
+                        </div>
+                        <svg class="copy-icon" onclick="copyEmail(event)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copy-feedback" id="copy-feedback">
+                ✓ Copiado para a área de transferência!
+            </div>
         </section>
 
     </main>
+
+    <div class="grain-overlay"></div>
+    <div class="timeline-playhead"></div>
+    <div class="timeline-markers">
+        <div class="timeline-marker"></div>
+        <div class="timeline-marker"></div>
+        <div class="timeline-marker"></div>
+        <div class="timeline-marker"></div>
+        <div class="timeline-marker"></div>
+        <div class="timeline-marker"></div>
+    </div>
+    <div class="waveform-container">
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+        <div class="waveform-bar"></div>
+    </div>
+    
+    <div class="rec-widget">
+        <div class="rec-dot"></div>
+        <span class="rec-text">.REC</span>
+        <span class="rec-timer" id="session-timer">00:00:00</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startTime = Date.now();
+            const timerElement = document.getElementById('session-timer');
+            
+            setInterval(function() {
+                const elapsed = Date.now() - startTime;
+                
+                const totalSeconds = Math.floor(elapsed / 1000);
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                const formattedTime = 
+                    String(hours).padStart(2, '0') + ':' +
+                    String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0');
+                
+                timerElement.textContent = formattedTime;
+            }, 1000);
+        });
+    </script>
+
+    <script>
+        function addBlur() {
+            document.body.classList.add('blur-background');
+        }
+        
+        function removeBlur() {
+            document.body.classList.remove('blur-background');
+        }
+        
+        function copyDiscord(event) {
+            event.stopPropagation();
+            const username = '.tabajara';
+            
+            navigator.clipboard.writeText(username).then(function() {
+                const feedback = document.getElementById('copy-feedback');
+                feedback.classList.add('show');
+                
+                setTimeout(function() {
+                    feedback.classList.remove('show');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Erro ao copiar: ', err);
+            });
+        }
+        
+        function copyEmail(event) {
+            event.stopPropagation();
+            const email = 'krib951@gmail.com';
+            
+            navigator.clipboard.writeText(email).then(function() {
+                const feedback = document.getElementById('copy-feedback');
+                feedback.classList.add('show');
+                
+                setTimeout(function() {
+                    feedback.classList.remove('show');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Erro ao copiar: ', err);
+            });
+        }
+    </script>
 
 </body>
 </html>
