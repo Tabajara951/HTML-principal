@@ -196,27 +196,79 @@
 
         /* Seção 3: Contato */
         #contato {
-             text-align: center;
+            text-align: center;
+            background-color: #8a79a9;
+            padding: 60px 20px;
         }
         
-        #contato ul {
-            list-style: none;
-            padding: 0;
+        #contato h2 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
         
-        #contato li {
-            margin: 10px 0;
+        #contato p {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
         }
         
-        #contato a {
-            color: #ffbe0b;
-            text-decoration: none;
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .contact-btn {
+            width: 100%;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: bold;
-            transition: color 0.3s;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, opacity 0.2s;
+            color: #ffffff;
         }
         
-        #contato a:hover {
-            color: #ff006e;
+        .contact-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        
+        .contact-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-discord {
+            background-color: #5865F2;
+        }
+        
+        .btn-twitter {
+            background-color: #000000;
+        }
+        
+        .btn-email {
+            background-color: #808080;
+        }
+        
+        .copy-feedback {
+            display: none;
+            color: #ffffff;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .copy-feedback.show {
+            display: block;
+            opacity: 1;
         }
         
         main {
@@ -275,14 +327,43 @@
             <h2>ENTRE EM CONTATO</h2>
             <p>Gostou do que viu? Vamos criar algo incrível juntos.</p>
             
-            <ul>
-                <li><a href="mailto:seu-email@dominio.com">MEU E-MAIL</a></li>
-                <li><a href="https://wa.me/SEUNUMERO" target="_blank">WHATSAPP</a></li>
-                <li><a href="https://www.linkedin.com/in/SEU-LINKEDIN" target="_blank">LINKEDIN</a></li>
-            </ul>
+            <div class="contact-buttons">
+                <button class="contact-btn btn-discord" id="discord-btn" onclick="copyDiscord()">
+                    .tabajara
+                </button>
+                
+                <a href="https://x.com/tabajara_2" target="_blank" class="contact-btn btn-twitter">
+                    X (Twitter)
+                </a>
+                
+                <a href="mailto:seu-email@exemplo.com" class="contact-btn btn-email">
+                    E-mail
+                </a>
+            </div>
+            
+            <div class="copy-feedback" id="copy-feedback">
+                ✓ Copiado para a área de transferência!
+            </div>
         </section>
 
     </main>
+
+    <script>
+        function copyDiscord() {
+            const username = '.tabajara';
+            
+            navigator.clipboard.writeText(username).then(function() {
+                const feedback = document.getElementById('copy-feedback');
+                feedback.classList.add('show');
+                
+                setTimeout(function() {
+                    feedback.classList.remove('show');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Erro ao copiar: ', err);
+            });
+        }
+    </script>
 
 </body>
 </html>
