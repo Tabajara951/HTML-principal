@@ -500,6 +500,49 @@
             80% { transform: translate(10%, -5%); }
             90% { transform: translate(-5%, 10%); }
         }
+        
+        .rec-widget {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: Consolas, 'Courier New', monospace;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        .rec-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #FF0000;
+            border-radius: 50%;
+            animation: blink-animation 1s infinite;
+        }
+        
+        @keyframes blink-animation {
+            0%, 100% {
+                background-color: #FF0000;
+            }
+            50% {
+                background-color: #6d0000;
+            }
+        }
+        
+        .rec-text {
+            color: #FF0000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .rec-timer {
+            color: #ffffff;
+            font-size: 14px;
+        }
 
     </style>
 </head>
@@ -628,6 +671,35 @@
         <div class="waveform-bar"></div>
         <div class="waveform-bar"></div>
     </div>
+    
+    <div class="rec-widget">
+        <div class="rec-dot"></div>
+        <span class="rec-text">REC</span>
+        <span class="rec-timer" id="session-timer">00:00:00</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startTime = Date.now();
+            const timerElement = document.getElementById('session-timer');
+            
+            setInterval(function() {
+                const elapsed = Date.now() - startTime;
+                
+                const totalSeconds = Math.floor(elapsed / 1000);
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                const formattedTime = 
+                    String(hours).padStart(2, '0') + ':' +
+                    String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0');
+                
+                timerElement.textContent = formattedTime;
+            }, 1000);
+        });
+    </script>
 
     <script>
         function addBlur() {
